@@ -18,7 +18,7 @@ void createQueue(address *p) {
 // }
 
 void Enqueue(address *p, address pNew) {
-    Ins_Akhir(p, pNew);
+    insertSortByPriDescendingWrapper(p, pNew);
 }
 
 void Dequeue(address *p, infotype *X) {

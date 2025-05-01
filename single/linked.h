@@ -48,4 +48,5 @@ address BalikList(address p);
 int NbAnggota(address p);
 void Tampil_Buku(address p);
 address getBook(address p);
+void insertAnggotaSortDescendingByPriWrapper(address *l, address pNew);
 #endif

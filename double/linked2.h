@@ -6,11 +6,11 @@
 #include "linked.h"
 #include <stdio.h>
 // typedef int infotype;
-#include "stok.h"
+#include "book.h"
 typedef union {
     int intValue;
     char strValue[MAX_STRING_LENGTH];
-    Stok StokValue;
+    Book bookValue;
 } infotype2;
 // typedef struct {
 //     nametype kt;
@@ -24,7 +24,7 @@ typedef struct tElmtList2 {
   address2 next;
 } ElmtList2;
 typedef address2 DLList;
-void Isi_Node_Stok(address2 *p, Stok nilai);
+void Isi_Node_Book(address2 *p, Book nilai);
 bool isEmpty2(address2 p);
 void Create_Node2(address2 *p);
 void createList2(address2 *p);

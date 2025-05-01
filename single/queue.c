@@ -17,7 +17,7 @@ void createQueue(address *p) { createList(p); }
 
 void Enqueue(address *p, address pNew) {
   // Ins_Akhir(p, pNew);
-  insertAnggotaSortAscendingByPriWrapper(p, pNew);
+  insertAnggotaSortDescendingByPriWrapper(p, pNew);
 }
 
 void Dequeue(address *p, infotype *X) { Del_User_Akhir(p, X); }

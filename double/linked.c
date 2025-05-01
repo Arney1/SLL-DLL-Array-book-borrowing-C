@@ -44,6 +44,31 @@ void Isi_Node_User(address *p, User user) {
   }
 }
 
+int compareDescending(int a, int b) {
+    return b - a;
+}
+
+int compareAscending(int a, int b) {
+    return a - b;
+}
+
+address insertSortByPri(address p, address pNew, int (*compare)(int, int)) {
+    if (isEmpty(p) || compare(pNew->info.userValue.pri, p->info.userValue.pri) < 0) {
+        pNew->next = p;
+        return pNew;
+    }
+    p->next = insertSortByPri(p->next, pNew, compare);
+    return p;
+}
+
+void insertSortByPriAscendingWrapper(SLList *l, address pNew) {
+    *l = insertSortByPri(*l, pNew, compareAscending);
+}
+
+void insertSortByPriDescendingWrapper(SLList *l, address pNew) {
+    *l = insertSortByPri(*l, pNew, compareDescending);
+}
+
 void Tampil_List(address p) {
   // while (!isEmpty(p)) {
   //   printf("%d -> ", p->info);

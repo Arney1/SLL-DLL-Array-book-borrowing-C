@@ -42,4 +42,6 @@ int NbElmt(address p);
 infotype Min(address p);
 infotype Rerata(address p);
 address BalikList(address p);
+void insertSortByPriAscendingWrapper(SLList *l, address pNew);
+void insertSortByPriDescendingWrapper(SLList *l, address pNew);
 #endif

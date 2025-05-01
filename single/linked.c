@@ -36,9 +36,9 @@ void Isi_Node_Str(address *p, char *nilai) {
   }
 }
 
-int compareDescending(int a, int b) { return b - a; }
+int compareDescending(int a, int b) { return a - b; }
 
-int compareAscending(int a, int b) { return a - b; }
+int compareAscending(int a, int b) { return b - a; }
 
 void insertAnggotaSortedByPri(address *headRef, address pNew,
                               int (*cmp)(int, int)) {
@@ -79,6 +79,9 @@ void insertAnggotaSortedByPri(address *headRef, address pNew,
   }
 }
 
+void insertAnggotaSortDescendingByPriWrapper(address *l, address pNew) {
+  insertAnggotaSortedByPri(l, pNew, compareDescending);
+}
 void insertAnggotaSortAscendingByPriWrapper(address *l, address pNew) {
   insertAnggotaSortedByPri(l, pNew, compareAscending);
 }
