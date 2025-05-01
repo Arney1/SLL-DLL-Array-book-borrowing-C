@@ -113,7 +113,7 @@ void addUser(Book *books, int *count) {
   createUser(&user, orang, pri);
   Isi_Node_User(&newNode, user);
   insertSortByPriAscendingWrapper(&(selected2->users), newNode);
-  if (selected2->stok > 0) {
+  if (selected2->stok > 1) {
     borrowIt(selected2);
   }
 }
@@ -159,7 +159,7 @@ void returnBook(Book *books, int *count) {
   infotype user;
   deleteByAddress(&selected2->borrower, selected, &user);
   selected2->stok += 1;
-  if (selected2->stok > 0 && !isEmpty(selected2->users)) {
+  if (selected2->stok > 1 && !isEmpty(selected2->users)) {
     borrowIt(selected2);
   }
 }
