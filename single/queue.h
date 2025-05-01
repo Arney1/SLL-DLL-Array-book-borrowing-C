@@ -1,3 +1,6 @@
+#ifndef QUEUE_H
+#define QUEUE_H
+
 #include "linked.h"
 #include <stdbool.h>
 
@@ -11,7 +14,8 @@ void Tampil_List(address p);
 void createQueue(address *p);
 void Create_Node(address *p);
 void Isi_Node(address *p, infotype nilai);
-void insertSortedByPri(address *p, address pNew, bool (*cmp)(infotype, infotype));
-void insertSortedAscendingByPriWrapper(address *p, address pNew);
+// void insertSortedByPri(address *p, address pNew, bool (*cmp)(infotype, infotype));
+// void insertSortedAscendingByPriWrapper(address *p, address pNew);
 void Enqueue(address *p, address pNew);
 void Dequeue(address *p, infotype *X);
+#endif

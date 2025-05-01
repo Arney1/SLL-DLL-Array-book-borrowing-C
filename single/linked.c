@@ -39,38 +39,48 @@ void Isi_Node_Str(address *p, char *nilai) {
 int compareDescending(int a, int b) { return b - a; }
 
 int compareAscending(int a, int b) { return a - b; }
-address insertAnggotaSortedByPri(address p, address pNew,
-                                 int (*cmp)(int, int)) {
-  if (isEmpty(p) || cmp(pNew->info.elemenValue.stokOrPriority,
-                        p->info.elemenValue.stokOrPriority) > 0) {
-    pNew->next = p;
-    return pNew;
+
+void insertAnggotaSortedByPri(address *headRef, address pNew,
+                              int (*cmp)(int, int)) {
+  if (pNew == NULL)
+    return; // Don't insert NULL node
+
+  // If list is empty or pNew has higher priority than head
+  if (*headRef == NULL ||
+      cmp(pNew->info.elemenValue.stokOrPriority,
+          (*headRef)->info.elemenValue.stokOrPriority) > 0) {
+    pNew->next = *headRef;
+    *headRef = pNew;
+    return;
   }
 
-  if (p->next == NULL) {
-    p->next = pNew;
+  address curr = *headRef;
+  address prev = NULL;
+
+  // Traverse the list to find the correct position for pNew
+  while (curr != NULL && cmp(pNew->info.elemenValue.stokOrPriority,
+                             curr->info.elemenValue.stokOrPriority) < 0) {
+    prev = curr;
+    curr = curr->next;
+  }
+
+  // If we reached the end of the list, insert pNew as the new last node
+  if (curr == NULL) {
+    prev->next = pNew;
     pNew->next = NULL;
-    return p;
-  }
-
-  if (p->next->next == NULL) {
-    if (cmp(pNew->info.elemenValue.stokOrPriority,
-            p->next->info.elemenValue.stokOrPriority) > 0) {
-      pNew->next = p->next;
-      p->next = pNew;
+  } else {
+    // Insert pNew before curr
+    pNew->next = curr;
+    if (prev != NULL) {
+      prev->next = pNew;
     } else {
-      pNew->next = NULL;
-      p->next->next = pNew;
+      *headRef = pNew; // If pNew is the new head
     }
-    return p;
   }
-
-  p->next = insertAnggotaSortedByPri(p->next, pNew, cmp);
-  return p;
 }
 
 void insertAnggotaSortAscendingByPriWrapper(address *l, address pNew) {
-  *l = insertAnggotaSortedByPri((*l), pNew, compareAscending);
+  insertAnggotaSortedByPri(l, pNew, compareAscending);
 }
 
 // void Isi_Node_User(address *p, User user) {
@@ -120,8 +130,7 @@ void Tampil_User(address p) {
   if (isEmpty(p)) {
     printf("NULL\n");
   } else if (p->info.elemenValue.type == BUKU) {
-    printf("Buku: [Judul: %s, Stok: %i] -> ", p->info.elemenValue.name,
-           p->info.elemenValue.stokOrPriority);
+    printf("Buku");
     printf("\n");
   } else {
     if (p->info.elemenValue.type == ANGGOTA) {
@@ -140,6 +149,40 @@ void Tampil_User(address p) {
     //   (*p).info.elemenValue.stokOrPriority); Tampil_List((*p).next);
     // }
   }
+}
+void Tampil_Buku(address p) {
+  if (!isEmpty(p)) {
+
+    while (!isEmpty(p->next)) {
+      // printf("%d -> ", p->info);
+      p = p->next;
+    }
+    printf("[%s, %i]", p->info.elemenValue.name,
+           p->info.elemenValue.stokOrPriority);
+  }
+  // printf("NULL\n");
+  // // if (isEmpty(p)) {
+  //   printf("NULL\n");
+  // } else if (p->info.elemenValue.type == BUKU) {
+  //   printf("Buku: [Judul: %s, Stok: %i] -> ", p->info.elemenValue.name,
+  //          p->info.elemenValue.stokOrPriority);
+  //   printf("\n");
+  // } else {
+  //   if (p->info.elemenValue.type == ANGGOTA) {
+  //     printf("[%s, %i] -> ", (*p).info.elemenValue.name,
+  //            (*p).info.elemenValue.stokOrPriority);
+  //     Tampil_User((*p).next);
+  //   }
+  // if ((*p).type == STRING) {
+  //   printf("%s -> ", (*p).info.strValue);
+  //   Tampil_List((*p).next);
+  // } else if (p->type == INTEGER){
+  //   printf("%d -> ", (*p).info.intValue);
+  //   Tampil_List((*p).next);
+  // } else if ((*p).type == ELEMEN){
+  //   printf("[%s, %i] -> ", (*p).info.elemenValue.name,
+  //   (*p).info.elemenValue.stokOrPriority); Tampil_List((*p).next);
+  // }
 }
 
 void Ins_Awal(address *p, address PNew) {
@@ -230,6 +273,45 @@ void Del_Akhir(address *p, infotype *X) {
       free(last);
       (*prev).next = NULL;
     }
+  }
+}
+
+address getBook(address p) {
+  address book = NULL;
+  while (p != NULL) {
+    if (p->info.elemenValue.type == BUKU) {
+      book = p;
+      break;
+    }
+    p = p->next;
+  }
+  return book;
+}
+
+void Del_User_Akhir(address *p, infotype *X) {
+  if (!isEmpty(*p)) {
+    if ((*p)->next == NULL) {
+      // If the list has only one or two nodes
+      printf("Cannot delete the second last node.\n");
+      return;
+    } else if ((*p)->next->next == NULL) {
+      Del_Awal(p, X);
+    } else {
+      // Traverse to the node before the second last
+      address prev = NULL;
+      address current = *p;
+
+      while (current->next->next->next != NULL) {
+        current = current->next;
+      }
+
+      address secondLast = current->next;
+      *X = secondLast->info;
+      current->next = secondLast->next;
+      free(secondLast);
+    }
+  } else {
+    printf("List is empty.\n");
   }
 }
 

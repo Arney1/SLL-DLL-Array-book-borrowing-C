@@ -39,9 +39,10 @@ void Isi_Node_Str2(address2 *p, char *nilai) {
   }
 }
 
-void Isi_Node_Queue(address2 *p, Queue queue) {
+void Isi_Node_Queue(address2 *p, Queue bookQueue, SLList borrowerQueue) {
     if (*p != NULL) {
-        (**p).info.queueValue = queue;
+        (**p).info.queueValue.bookQueue = bookQueue;
+        (**p).info.queueValue.borrowerList = borrowerQueue;
         (**p).type = BOOKQUEUE;
         (**p).next = NULL;
     }
@@ -100,17 +101,20 @@ void Tampil_List2(address2 p) {
     } else if (p->type == BOOKQUEUE){
       // printf("[%s, %i] -> ", (*p).info.queueValue, (*p).info.elemenValue.stokOrPriority);
       // Tampil_List2((*p).next);
-      Tampil_List((*p).info.queueValue);
+      Tampil_List((*p).info.queueValue.bookQueue);
     }
   }
 }
 
-void Tampil_Buku(SLList2 *k) {
+void Tampil_Buku2(address2 k) {
   // clearTerminal();
-  Tampil_List2(*k);
-  int kotaCount = NbElmt2(*k);
-  printf("\n\n");
-  printf("Total Buku: %d\n", kotaCount);
+  if (isEmpty2(k)) {
+      printf("NULL\n");
+  } else {
+      Tampil_Buku(k->info.queueValue.bookQueue);
+      printf(" -> ");
+      Tampil_Buku2(k->next);
+  }
 }
 
 void Ins_Awal2(address2 *p, address2 PNew) {

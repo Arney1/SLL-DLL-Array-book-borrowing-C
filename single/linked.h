@@ -27,6 +27,8 @@ void Isi_Node_Int(address *p, int nilai);
 void Isi_Node_Str(address *p, char *nilai);
 // void Isi_Node_User(address *p, User user);
 void Isi_Node_BookOrAnggota(address *p, struct Element elemen);
+void insertAnggotaSortAscendingByPriWrapper(address *l, address pNew);
+void Del_User_Akhir(address *p, infotype *X);
 void Tampil_List(address p);
 void Tampil_User(address p);
 void Ins_Awal(address *p, address PNew);
@@ -44,4 +46,6 @@ infotype Min(address p);
 infotype Rerata(address p);
 address BalikList(address p);
 int NbAnggota(address p);
+void Tampil_Buku(address p);
+address getBook(address p);
 #endif

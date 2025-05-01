@@ -4,9 +4,7 @@
 // void Create_Node(address *p) {
 //     Create_Node(p);
 // }
-void createQueue(address *p) {
-    createList(p);
-}
+void createQueue(address *p) { createList(p); }
 
 // void popAllAndPrint(Stack *q) {
 //   while (!isEmpty(*q)) {
@@ -18,9 +16,8 @@ void createQueue(address *p) {
 // }
 
 void Enqueue(address *p, address pNew) {
-    Ins_Akhir(p, pNew);
+  // Ins_Akhir(p, pNew);
+  insertAnggotaSortAscendingByPriWrapper(p, pNew);
 }
 
-void Dequeue(address *p, infotype *X) {
-    Del_Awal(p, X);
-}
+void Dequeue(address *p, infotype *X) { Del_User_Akhir(p, X); }

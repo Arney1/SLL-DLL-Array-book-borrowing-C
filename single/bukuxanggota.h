@@ -13,5 +13,7 @@ typedef struct Element{
     int stokOrPriority; //1 = Dosen, 2 = Mahasiswa, 3 = Masyarakat Umum
     dataType type;
 } Book, Anggota;
+void createBuku(char* judul, int stok, Book* buku);
+void createAnggota(char* judul, int stok, Anggota* buku);
 
 #endif
