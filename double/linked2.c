@@ -43,6 +43,7 @@ void Isi_Node_Book(address2 *p, Book nilai) {
     (**p).info.bookValue.stok = nilai.stok;
     (**p).info.bookValue.borrower = nilai.borrower;
     (**p).info.bookValue.users = nilai.users;
+    (**p).type = BOOK;
     // (**p).info. = STOK;
     strcpy((*p)->info.bookValue.title, nilai.title);
     // (**p).next = NULL;
