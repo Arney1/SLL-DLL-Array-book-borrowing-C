@@ -55,7 +55,7 @@ int main() {
     printf("\nPilih menu: ");
     // getchar();
     scanf("%d", &a);
-    if (a >= 1 && a <= 6) {
+    if (a >= 1 && a <= 9) {
       tab[a - 1](&firsts);
     }
   }
